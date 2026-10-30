@@ -48,29 +48,30 @@ def foot(d):
 def render(d):
     t = d["t"]
     if t == "cover":
-        return f'''<div class="cover"><div class="cover-text">
+        return f'''<div class="cover">{ill("cover_bg")}<div class="cover-text">
 <h1><mark>{e(d["title"])}</mark></h1>
 <div class="hand subtitle">{e(d["sub"])}</div>
 <div class="meta">{e(d["org"])}</div>
 <div class="who"><span>{e(d["who"])}</span></div>
 </div></div>'''
     if t == "closing":
-        return f'''<div class="cover"><div class="cover-text">
+        return f'''<div class="cover">{ill("cover_bg")}<div class="cover-text">
 <div class="org">{e(d["kicker"])}</div><h1><mark>{e(d["title"])}</mark></h1>
 <div class="meta">{e(d["sub"])}</div>
 </div></div>'''
     if t == "divider":
         return f'''<div class="divider"><div class="dv-text"><div class="kicker big">{e(d["kicker"])}</div>
-<h2 class="dv-title">{e(d["title"])}</h2><div class="dv-sub">{e(d["sub"])}</div></div></div>'''
+<h2 class="dv-title">{e(d["title"])}</h2><div class="dv-sub">{e(d["sub"])}</div></div>
+<div class="dv-ill">{ill(d["ill"])}</div></div>'''
     if t == "bullets":
         tag = "ol" if d.get("numbered") else "ul"
         lis = "".join(f'<li class="{"hl" if i in d.get("hl", []) else ""}">{e(x)}</li>' for i, x in enumerate(d["items"]))
         return f'{head(d)}<{tag} class="bul">{lis}</{tag}>{foot(d)}'
     if t == "shot":
         cls = "shot wide" if d.get("wide") else "shot"
-        return f'{head(d)}<div class="{cls}"><img src="{SHOT}{d["img"]}" alt=""></div>{foot(d)}'
+        return f'{head(d)}<div class="{cls}"><img src="{SHOT}{d["img"]}" alt="{html.escape(d["title"])}（假資料）"></div>{foot(d)}'
     if t == "shot2":
-        imgs = "".join(f'<img src="{SHOT}{i}" alt="">' for i in d["imgs"])
+        imgs = "".join(f'<img src="{SHOT}{i}" alt="{html.escape(d["title"])}・素材 {n}（假資料）">' for n, i in enumerate(d["imgs"], 1))
         cls = "three" if len(d["imgs"]) == 3 else "two"
         return f'{head(d)}<div class="shot {cls}">{imgs}</div>{foot(d)}'
     if t == "qrpage":
@@ -81,19 +82,21 @@ def render(d):
         return f'{head(d)}<div class="shot two">{figs}</div>{foot(d)}'
     if t == "shotText":
         ps = "".join(f"<p>{e(x)}</p>" for x in d["text"])
-        return f'{head(d)}<div class="st"><div class="st-img"><img src="{SHOT}{d["img"]}" alt=""></div><div class="st-text">{ps}</div></div>{foot(d)}'
+        return f'{head(d)}<div class="st"><div class="st-img"><img src="{SHOT}{d["img"]}" alt="{html.escape(d["title"])}（假資料）"></div><div class="st-text">{ps}</div></div>{foot(d)}'
     if t == "illus":
         return f'{head(d)}<div class="illus">{ill(d["ill"])}</div>{foot(d)}'
     if t == "cards":
         cs = "".join(f'<div class="card"><h3>{e(h)}</h3><p>{e(b)}</p>{f"<div class=note>{e(n)}</div>" if n else ""}</div>' for h, b, n in d["cards"])
-        return f'{head(d)}<div class="cards c{d["cols"]}">{cs}</div>{foot(d)}'
+        variant = f' {d["variant"]}' if d.get("variant") else ""
+        return f'{head(d)}<div class="cards c{d["cols"]}{variant}">{cs}</div>{foot(d)}'
     if t == "redesign":
         cs = "".join(f'<div class="card rd{i}"><h3>{e(h)}</h3><p>{e(b)}</p>{f"<div class=note>{e(n)}</div>" if n else ""}</div>'
                      for i, (h, b, n) in enumerate(d["cols"]))
         return f'{head(d)}<div class="cards c3 arrows">{cs}</div>{foot(d)}'
     if t == "flow":
-        cs = "".join(f'<div class="card"><div class="num">{i + 1}</div><h3>{e(h)}</h3><p>{e(b)}</p></div>' for i, (h, b) in enumerate(d["steps"]))
-        return f'{head(d)}<div class="cards c4 arrows">{cs}</div>{foot(d)}'
+        cs = "".join(f'<li><span class="route-no">{i + 1:02}</span><h3>{e(h)}</h3><div class="minutes">{m}<small>分鐘</small></div><p>{e(b)}</p></li>' for i, (h, m, b) in enumerate(d["steps"]))
+        bars = "".join(f'<span style="flex:{m}"></span>' for _, m, _ in d["steps"])
+        return f'{head(d)}<ol class="timeline">{cs}</ol><div class="time-track" aria-hidden="true">{bars}</div>{foot(d)}'
     if t == "steps":
         cs = "".join(f'<li><span class="num">{i + 1}</span><span>{e(x)}</span></li>' for i, x in enumerate(d["steps"]))
         cls = "steps compact" if d.get("compact") else "steps"

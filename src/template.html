@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>用 AI 讀懂學力檢測｜第四群組教務主任增能研習</title>
-<meta name="description" content="用 AI 讀懂學力檢測，找出學校的改變方向。第四群組教務主任增能研習：八則指令、講稿、補充資料與學校改變方向卡。">
+<meta name="description" content="用 AI 讀懂學力檢測，找出學校的改變方向。第四群組教務主任增能研習：AI 基本功、三則基本功與八則分析指令、講稿、補充資料與學校改變方向卡。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=LXGW+WenKai+TC:wght@400;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
@@ -117,12 +117,40 @@ ol.bul li::marker{font-weight:900;color:var(--blue)}
 .qr{width:420px;border:3px solid var(--navy);border-radius:14px;background:#fff;padding:10px}
 .srcs{display:grid;grid-template-columns:1fr 1fr;gap:40px;font-size:31px;line-height:1.6}
 .srcs ul{margin:0;padding-left:1em}
-/* 本場文字版：沿用原版字級、色彩與框線 */
+/* 本場版面：保留大字，補充說明留在側欄 */
 .cover .subtitle{font:700 68px "LXGW WenKai TC",serif;margin:24px 0 54px}
 .cover .who{font-size:34px}
 .dv-title{font-size:116px}
 .dv-sub{font-size:50px}
 .tbl.compact th{font-size:36px}
+.tbl tbody tr:nth-child(even) td{background:#F0F6FC}
+.tbl tbody tr:nth-child(even) td:nth-child(3){background:#FFF2DB}
+.card{border-width:2px;box-shadow:8px 10px 0 var(--pale),0 16px 28px #1e3a6e0a}
+.upload{align-items:stretch;padding:48px 0}
+.upload .card{padding:30px 28px;border-radius:24px;border-top:10px solid #43846B}
+.upload .card:nth-child(2){border-top-color:var(--orange);background:#FFFBF2}
+.upload .card:nth-child(3){border-top-color:#B5462E;background:#FFF6F3}
+.upload .card h3{font-size:40px;margin-bottom:28px}
+.upload .card p{font-size:36px;line-height:1.8}
+.st-text p{font-size:52px;font-weight:700;border-left:8px solid var(--orange);padding-left:26px}
+.t-shot2 .title{font-size:68px}
+.dv-text{min-width:0}
+.dv-ill{width:700px;height:700px}
+.dv-ill .ill.missing{width:100%}
+.cover .ill.missing{width:100%;align-items:flex-end;padding-bottom:38px;background:linear-gradient(135deg,#DCEEFB,#FBFDFF 50%,#FFF1DC);font-size:28px}
+/* 七段時間軸：分鐘數為主要視覺 */
+.timeline{list-style:none;padding:0;margin:auto 0;display:grid;grid-template-columns:repeat(7,1fr);gap:18px}
+.timeline li{position:relative;background:#fff;border:2px solid var(--line);border-top:8px solid var(--sky);border-radius:20px;padding:24px 16px;box-shadow:0 10px 0 var(--pale)}
+.timeline li:nth-child(3),.timeline li:nth-child(6){border-top-color:var(--orange);background:#FFFAF0}
+.route-no{font:700 32px Caveat,cursive;color:var(--blue)}
+.timeline h3{font-size:34px;color:var(--navy);margin:20px 0;white-space:nowrap}
+.minutes{font-size:82px;line-height:1.1;font-weight:900;color:var(--navy)}
+.minutes small{display:block;font-size:26px;font-weight:500;margin-top:8px;color:var(--muted)}
+.timeline p{font-size:28px;line-height:1.6;margin:30px 0 0;color:var(--ink)}
+.timeline li:not(:last-child)::after{content:"›";position:absolute;right:-19px;top:48%;z-index:1;color:var(--blue);font-size:42px}
+.time-track{display:flex;gap:6px;height:18px;margin-top:32px;border-radius:9px;overflow:hidden}
+.time-track span{background:var(--sky)}
+.time-track span:nth-child(3),.time-track span:nth-child(6){background:var(--orange)}
 button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(--orange);outline-offset:4px}
 /* 補充按鈕 */
 .supbtn{position:absolute;right:110px;bottom:24px;font:700 28px "Noto Sans TC";color:#fff;background:var(--blue);border:none;border-radius:30px;padding:10px 26px;cursor:pointer;box-shadow:0 4px 0 var(--navy)}
@@ -156,7 +184,9 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(-
 .dl{display:inline-block;background:var(--orange);color:#fff;font-weight:700;border-radius:14px;padding:6px 14px;text-decoration:none}
 .shot.two figure{margin:0;flex:1;display:flex;flex-direction:column;align-items:center;height:100%;min-height:0}.shot.two figure img{max-width:100%;flex:1;min-height:0}.shot.two figcaption{font:900 40px 'Noto Sans TC';margin-top:14px}
 /* 控制列 */
-#bar{position:fixed;left:50%;top:10px;transform:translateX(-50%);display:flex;gap:8px;z-index:10;padding:6px;background:rgba(255,255,255,.9);border:2px solid var(--navy);border-radius:24px;box-shadow:0 4px 14px rgba(30,58,110,.25)}
+#bar-zone{position:fixed;left:0;right:0;top:0;height:76px;z-index:10}
+#bar{position:absolute;left:50%;top:6px;transform:translateX(-50%) scale(.82);transform-origin:top center;opacity:.25;transition:opacity .2s,transform .2s;display:flex;gap:8px;padding:6px;background:rgba(255,255,255,.95);border:2px solid var(--navy);border-radius:24px;box-shadow:0 4px 14px rgba(30,58,110,.25);white-space:nowrap}
+#bar-zone:hover #bar,#bar:focus-within{opacity:1;transform:translateX(-50%) scale(1)}
 #bar button{font:700 16px "Noto Sans TC";border:none;background:var(--navy);color:#fff;border-radius:16px;padding:8px 14px;cursor:pointer}
 #bar button:hover{background:var(--orange)}
 #prog{position:fixed;left:0;top:0;height:4px;background:var(--orange);z-index:10;transition:width .2s}
@@ -196,7 +226,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(-
 #timesUp{position:fixed;inset:0;z-index:45;display:none;align-items:center;justify-content:center;background:rgba(229,72,77,.88);font:900 min(18vw,220px) 'Noto Sans TC';color:#fff;cursor:pointer;animation:flash .6s 5}
 #timesUp.open{display:flex}
 @keyframes flash{0%,100%{opacity:1}50%{opacity:.55}}
-@media print{#timerPanel,#timerBadge,#edgeGlow,#timesUp{display:none!important}#bar,#panel,#prog,.supbtn{display:none}}
+@media print{#timerPanel,#timerBadge,#edgeGlow,#timesUp{display:none!important}#bar-zone,#panel,#prog,.supbtn{display:none}}
 </style>
 </head>
 <body>
@@ -219,7 +249,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:4px solid var(-
 <div id="timerBadge" title="點一下打開計時設定"><span id="tLeft">05:00</span><span class="bar"><i id="tBar"></i></span></div>
 <div id="edgeGlow"></div>
 <div id="timesUp">時間到！</div>
-<nav id="bar"><button id="bPrev">◀</button><button id="bTimer">⏱ 計時 T</button><button id="bGrid">總覽 O</button><button id="bSup">補充 S</button><button id="bNotes">講稿 N</button><button id="bFull">全螢幕 F</button><button id="bNext">▶</button></nav>
+<div id="bar-zone"><nav id="bar" aria-label="簡報工具列"><button id="bPrev">◀</button><button id="bTimer">⏱ 計時 T</button><button id="bGrid">總覽 O</button><button id="bSup">補充 S</button><button id="bNotes">講稿 N</button><button id="bFull">全螢幕 F</button><button id="bNext">▶</button></nav></div>
 <script>
 const SIDE=/*SIDE*/[];
 const slides=[...document.querySelectorAll('.slide')];
