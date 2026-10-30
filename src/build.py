@@ -61,7 +61,7 @@ def render(d):
 </div></div>'''
     if t == "divider":
         return f'''<div class="divider"><div class="dv-text"><div class="kicker big">{e(d["kicker"])}</div>
-<h2 class="dv-title">{e(d["title"])}</h2><div class="dv-sub">{e(d["sub"])}</div></div>
+<h2 class="dv-title">{e(d["title"])}</h2><div class="dv-sub">{e(d["sub"])}</div>{foot(d)}</div>
 <div class="dv-ill">{ill(d["ill"])}</div></div>'''
     if t == "bullets":
         tag = "ol" if d.get("numbered") else "ul"
