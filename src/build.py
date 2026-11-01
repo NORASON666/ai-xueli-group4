@@ -134,8 +134,9 @@ def render(d):
     raise ValueError(t)
 
 
-def sup_html(n):
-    items = SUP.get(str(n), [])
+def sup_html(d):
+    # 補充資料：頁內 sup 優先；否則用 sid 對 supplements.json（避免改頁序後錯位）
+    items = d.get("sup") or SUP.get(str(d.get("sid", "")), [])
     out = []
     for it in items:
         pts = "".join(f"<li>{e(p)}</li>" for p in it.get("points", []))
@@ -168,7 +169,7 @@ for d in S:
         main += 1; label = str(main)
     note = d.get("notes", "")
     body = render(d)
-    sh, cnt = sup_html(label)
+    sh, cnt = sup_html(d)
     badge = f'<button class="supbtn" title="補充資料（S）">📎 補充（{cnt} 則）</button>' if cnt else ""
     slides.append(f'<section class="slide t-{d["t"]}" id="p{label}" data-label="{label}"><div class="inner">{body}</div>{badge}<div class="pno">{label}</div></section>')
     side.append({"n": label, "notes": note, "sup": sh})
